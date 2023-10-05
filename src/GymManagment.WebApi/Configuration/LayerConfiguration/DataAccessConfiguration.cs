@@ -1,4 +1,6 @@
 ﻿using GymManagment.DataAccess.DbContexts;
+using GymManagment.DataAccess.Intarfaces;
+using GymManagment.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymManagment.WebApi.Configuration.LayerConfiguration
@@ -9,6 +11,8 @@ namespace GymManagment.WebApi.Configuration.LayerConfiguration
         {
             string connectionString = builder.Configuration.GetConnectionString("DatabaseConnectionString")!;
             builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
